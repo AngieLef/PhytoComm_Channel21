@@ -5,6 +5,7 @@
 # Output            : Given in article "Decadal trajectories of phytoplankton communities in contrasted estuarine systems in an epicontinental Sea"
 # Auteur            : ANGELINE LEFRAN
 # R version         : 3.5.1, (ggplot2 : V3.1.0)
+# Encoding          : ISO 8859-1 (default)
 # Date de création  : 15 MARS 2020
 #______________________________________________________________________________________________
 
@@ -177,7 +178,7 @@ DataEnv$Résultat...Code.paramètre[DataEnv$Résultat...Code.paramètre %in% "TURB"]
   Table$period<-paste(Table$year,Table$datenum,sep="-")
   Table$period2<-paste(Table$year,Table$date,sep="-")
   
-
+  
   Table$col<-ifelse(Table$Val>=0,"red","blue")
   
   Table<-Table[order(Table$period),]
@@ -208,15 +209,15 @@ DataEnv$Résultat...Code.paramètre[DataEnv$Résultat...Code.paramètre %in% "TURB"]
     geom_point(data = Table,mapping = aes(x=period,y=Val, col=Station),size=2 )+  #colour="grey", pch=21,,
     scale_color_manual(values=c(brewer.pal(6,"Dark2"))) +
     theme(axis.text.x=element_text(angle=60, hjust=1))
+  
+}    
 
-    }    
+#pdf(paste("Figures/anomalies_facet3_legend",format(Sys.Date(), "%d%m%Y"),".pdf") , width = 10 , height = 15)
+png(paste("Figures/anomalies_facet4",format(Sys.Date(), "%d%m%Y"),".png") , width = 300 , height = 450, units ="mm",res =300,family ="Arial",pointsize =10)
+pp
+dev.off()
 
-  #pdf(paste("Figures/anomalies_facet3_legend",format(Sys.Date(), "%d%m%Y"),".pdf") , width = 10 , height = 15)
-  png(paste("Figures/anomalies_facet4",format(Sys.Date(), "%d%m%Y"),".png") , width = 300 , height = 450, units ="mm",res =300,family ="Arial",pointsize =10)
-  pp
-  dev.off()
-
-  #gridExtra::grid.arrange(pp, bottom="Figure 2: Seasonal anomalies of environmental variables over the period of 2008-2019 \n(black line: median value between all stations; grey ribbon: Q1 and Q3 limits). ")
+#gridExtra::grid.arrange(pp, bottom="Figure 2: Seasonal anomalies of environmental variables over the period of 2008-2019 \n(black line: median value between all stations; grey ribbon: Q1 and Q3 limits). ")
 
 
 ###### II) Dissimilarity : Bray Curtis ####
@@ -443,64 +444,64 @@ pdf(file= paste("Figures/", format(Sys.Date(), "%d%m%Y"),"CTA_legend with season
 par(mfrow = c(2,2),mar=c(7, 4, 1, 2) + 0.1) #default :  c(5, 4, 4, 2) + 0.1 (bottom, left, top, right)
 #Legend on Spring only
 {s<-"Spring"
-Tabsite<-Save[Save$Saison == s, ] #précision sur les données de départ
-
-# Analyses methods starts now :
-require(plyr)
-Tabsite$Résultat...Valeur.de.la.mesure<-round(log10(Tabsite$Résultat...Valeur.de.la.mesure),digits=2)
-
-colnames(Tabsite)[colnames(Tabsite)=="Résultat...Nom.du.taxon"]<-"Code"
-
-
-##Thanks love :##
-Total <- ddply (Tabsite, .(Passage...Année,Code,Lieu.de.surveillance...Libellé), 
-                function(x)data.frame(Total = mean(x$Résultat...Valeur.de.la.mesure)))
-
-##Binding year and season
-#
-colnames(Total)<-c("Passage...Date","Code","Lieu.de.surveillance...Libellé","Résultat...Valeur.de.la.mesure")
-
-#Binding this to the station name
-Total$group<-paste(Total$Passage...Date,Total$Lieu.de.surveillance...Libellé,sep="_")
-Total<-Total[,-c(1,3)]
-Total[1:5,]
-
-library(tidyr)
-library(ade4)
-matrixflora<-spread(Total,Code,Résultat...Valeur.de.la.mesure,fill=0)
-matrixflora[1:5,1:5]
-
-#Saving the first column apart for later
-Keep<-matrixflora[,1]
-matrixflora<-matrixflora[,-1]
-
-factor<-rep(unique(Tabsite$Lieu.de.surveillance...Libellé),each=15)
-substr(Keep,1,7)
-
-#####Bray-Curtis####
-matrixflora.diss <- vegdist(matrixflora,"bray") #renvoie une liste des distances
-matrixflora.diss2<- as.matrix(vegdist(matrixflora,"bray")) #créer la matrice de dissimilarité
-matrixflora.sim2<-1-matrixflora.diss2
-#hist(matrixflora.sim2)
-#write.table(matrixfauna.sim2,file = "Derived data sets/Matrice_sim_Antifer.csv",row.names=F,sep= ";", dec=".")
-
-
-#For seasonal Display
-trajectoryPCoA(matrixflora.diss, substr(Keep,6,36), substr(Keep,1,4), traj.colors = brewer.pal(6,"Dark2"), lwd = 2,length=0.1,axes=c(a,b))
-legend("bottomright", col=brewer.pal(8,"Dark2"),
-       legend= paste(Sites$Code[order(Sites$Code[1:6])]), bty="n", lty=1, lwd = 2)
-legend("topright", legend= paste(s), bty="n")
-#title(paste("Community Trajectory Analysis",s),cex.main = 1.1)
-
-
-# ## To make a table of trajectories lenght :
-# P<-  trajectoryPCoA(matrixflora.diss, substr(Keep,6,36), substr(Keep,1,4), 
-#                     traj.colors = brewer.pal(6,"Dark2"), lwd = 2,length=0.1,axes=c(a,b))
-# 
-# Coord<- data.frame(Axe_1=P$points[,1],Axe_2=P$points[,2],site=substr(Keep,6,36),year=as.integer(substr(Keep,1,4)))
-# 
-# write.table(Coord,file = paste("Derived data sets/Matrice_CTA_",s,".csv"),row.names=F,sep= ";", dec=".")
-# 
+  Tabsite<-Save[Save$Saison == s, ] #précision sur les données de départ
+  
+  # Analyses methods starts now :
+  require(plyr)
+  Tabsite$Résultat...Valeur.de.la.mesure<-round(log10(Tabsite$Résultat...Valeur.de.la.mesure),digits=2)
+  
+  colnames(Tabsite)[colnames(Tabsite)=="Résultat...Nom.du.taxon"]<-"Code"
+  
+  
+  ##Thanks love :##
+  Total <- ddply (Tabsite, .(Passage...Année,Code,Lieu.de.surveillance...Libellé), 
+                  function(x)data.frame(Total = mean(x$Résultat...Valeur.de.la.mesure)))
+  
+  ##Binding year and season
+  #
+  colnames(Total)<-c("Passage...Date","Code","Lieu.de.surveillance...Libellé","Résultat...Valeur.de.la.mesure")
+  
+  #Binding this to the station name
+  Total$group<-paste(Total$Passage...Date,Total$Lieu.de.surveillance...Libellé,sep="_")
+  Total<-Total[,-c(1,3)]
+  Total[1:5,]
+  
+  library(tidyr)
+  library(ade4)
+  matrixflora<-spread(Total,Code,Résultat...Valeur.de.la.mesure,fill=0)
+  matrixflora[1:5,1:5]
+  
+  #Saving the first column apart for later
+  Keep<-matrixflora[,1]
+  matrixflora<-matrixflora[,-1]
+  
+  factor<-rep(unique(Tabsite$Lieu.de.surveillance...Libellé),each=15)
+  substr(Keep,1,7)
+  
+  #####Bray-Curtis####
+  matrixflora.diss <- vegdist(matrixflora,"bray") #renvoie une liste des distances
+  matrixflora.diss2<- as.matrix(vegdist(matrixflora,"bray")) #créer la matrice de dissimilarité
+  matrixflora.sim2<-1-matrixflora.diss2
+  #hist(matrixflora.sim2)
+  #write.table(matrixfauna.sim2,file = "Derived data sets/Matrice_sim_Antifer.csv",row.names=F,sep= ";", dec=".")
+  
+  
+  #For seasonal Display
+  trajectoryPCoA(matrixflora.diss, substr(Keep,6,36), substr(Keep,1,4), traj.colors = brewer.pal(6,"Dark2"), lwd = 2,length=0.1,axes=c(a,b))
+  legend("bottomright", col=brewer.pal(8,"Dark2"),
+         legend= paste(Sites$Code[order(Sites$Code[1:6])]), bty="n", lty=1, lwd = 2)
+  legend("topright", legend= paste(s), bty="n")
+  #title(paste("Community Trajectory Analysis",s),cex.main = 1.1)
+  
+  
+  # ## To make a table of trajectories lenght :
+  # P<-  trajectoryPCoA(matrixflora.diss, substr(Keep,6,36), substr(Keep,1,4), 
+  #                     traj.colors = brewer.pal(6,"Dark2"), lwd = 2,length=0.1,axes=c(a,b))
+  # 
+  # Coord<- data.frame(Axe_1=P$points[,1],Axe_2=P$points[,2],site=substr(Keep,6,36),year=as.integer(substr(Keep,1,4)))
+  # 
+  # write.table(Coord,file = paste("Derived data sets/Matrice_CTA_",s,".csv"),row.names=F,sep= ";", dec=".")
+  # 
 } #Spring with station legend
 
 
@@ -550,7 +551,7 @@ for (s in (c("Summer","Autumn","Winter"))) {
   #For seasonal Display
   trajectoryPCoA(matrixflora.diss, substr(Keep,6,36), substr(Keep,1,4), traj.colors = brewer.pal(6,"Dark2"), lwd = 2,length=0.1,axes=c(a,b))
   #legend("bottomright", col=brewer.pal(8,"Dark2"),
-      #legend= paste(Sites$Code[order(Sites$Code[1:6])]), bty="n", lty=1, lwd = 2)
+  #legend= paste(Sites$Code[order(Sites$Code[1:6])]), bty="n", lty=1, lwd = 2)
   legend("topright", legend= paste(s), bty="n")
   #title(paste("Community Trajectory Analysis",s),cex.main = 1.1)
   
@@ -776,7 +777,7 @@ dev.off()
     
     library(tidyr)
     library(ade4)
-
+    
     Keepenv<- matrixenv[,c(1,2)]
     #matrixenv<-scale(matrixenv[,c(2:length(colnames(matrixenv)))]) #already taken care of within PTA
     
@@ -786,17 +787,17 @@ dev.off()
     
     matrixenv$`N/P`[which(is.na(matrixenv$`N/P`))]<- Missing_value_replacement
     
-  
-  
-  
-  ###>>>>> PTA application <<<<<
-  pcaenv <- withinpca (matrixenv, as.factor(as.character(Keepenv$Passage...Année)), scaling = "partial", scannf = F, nf = 3)
-  ktapenv <- ktab.within (pcaenv,colnames = Keepenv$Station) # creating k-tables, one for every sites, so you have to put your variable of time in order (unique) then repeat for the number of sites. 
-  
+    
+    
+    
+    ###>>>>> PTA application <<<<<
+    pcaenv <- withinpca (matrixenv, as.factor(as.character(Keepenv$Passage...Année)), scaling = "partial", scannf = F, nf = 3)
+    ktapenv <- ktab.within (pcaenv,colnames = Keepenv$Station) # creating k-tables, one for every sites, so you have to put your variable of time in order (unique) then repeat for the number of sites. 
+    
     kta41 <- t(ktapenv)
-  pta01 <- pta (kta41, scan = F, 3)
-  plot(pta01,option=c(1:4))
-  
+    pta01 <- pta (kta41, scan = F, 3)
+    plot(pta01,option=c(1:4))
+    
   } #Waiting for run
   # 
   
@@ -883,7 +884,7 @@ Selec$Nomination<-as.character(Selec$Nomination)
                     fac = ktaflora$TC[,2], ellipseSize = 0, starSize = 0.7,
                     plabels = list(cex=1, col = "darkgreen"), ppoints.cex = .5,ppoints.alpha =0.3,
                     plines.lwd = 0.2, plines.col= "grey", ppoints.col="grey",plot = FALSE)
-
+  
   ss2dia <- superpose(superpose(sl2dia, sa2dia, plot = FALSE), sc2dia,
                       plot = FALSE)
   
