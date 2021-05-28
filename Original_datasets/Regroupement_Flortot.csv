@@ -201,7 +201,7 @@ Nitzschia + Hantzschia;;;227;17/06/1987;06/04/2016;68663.27;22977.42;1666.98;666
 Nitzschia longissima;Cylindrotheca closterium + Nitzschia longissima;;1415;21/05/1987;16/09/2019;3007.51;4878.14;1592.67;1590.53
 Noctiluca;Noctiluca scintillans;;3;10/06/2013;01/07/2014;NA;1225.67;NA;NA
 Noctiluca scintillans;;;19;13/07/1988;09/11/2017;250;470;200;NA
-Oblea;Diplopsalis+Diplopelta+Diplopsalopsis+Preperidinium+Oblea;;2;02/09/2014;12/11/2014;NA;NA;150;NA
+Oblea;Diplopsalis + Diplopelta + Diplopsalopsis + Preperidinium + Oblea;;2;02/09/2014;12/11/2014;NA;NA;150;NA
 Odontella;;;197;07/03/2007;30/12/2019;4082.38;1000.43;722.94;602.58
 Odontella aurita;Odontella;;130;17/06/1987;30/10/2019;4283.61;1522.12;904.76;1423.42
 Odontella granulata;Odontella;;35;10/07/1987;22/12/2006;5698.75;11725;6600;833.33
@@ -224,14 +224,14 @@ Plagiogramma;;;296;22/02/1988;28/10/2019;25509.28;3161.19;2721.67;5331.77
 Plagiogrammopsis;Plagiogramma;;9;03/03/2010;18/11/2019;1302.67;NA;400;280
 Plagiogrammopsis vanheurckii;Plagiogramma;;7;03/12/2007;11/03/2019;200;NA;NA;710.8
 Plagiolemma;;;28;08/11/2016;17/12/2019;325;240;238.46;128.57
-Plagiolemma distortum;;;6;08/11/2016;05/02/2018;NA;NA;533.33;133.33
+Plagiolemma distortum;Plagiolemma;;6;08/11/2016;05/02/2018;NA;NA;533.33;133.33
 Pleurosigma;Pleurosigma + Gyrosigma;;53;13/05/2009;17/07/2019;986.32;987;566.2;381.22
 Pleurosigma + Gyrosigma;;;948;17/06/1987;30/12/2019;762.66;752.45;398.63;294.59
 Podolampas;;;2;26/03/2007;17/12/2007;400;NA;NA;200
 Podosira;;;17;15/12/2009;17/12/2019;280;200;200;406.75
 Polykrikos;;;154;22/02/1988;15/10/2019;329.81;980.26;843.58;455.55
 Polykrikos schwarzii;Polykrikos;;1;07/09/2016;07/09/2016;NA;NA;200;NA
-Porosira;;;34;03/07/1989;19/11/2019;9494.19;1425;3169.5;1195.29
+Porosira;Thalassiosira + Porosira;;34;03/07/1989;19/11/2019;9494.19;1425;3169.5;1195.29
 Prasinophyceae;X;nano;4;13/07/2004;12/06/2019;3500;2133.33;NA;NA
 Proboscia;;;1;04/09/2015;04/09/2015;NA;NA;200;NA
 Proboscia alata;Proboscia;;6;17/09/1987;01/08/2018;NA;5925;200;400

@@ -6,7 +6,8 @@
 # Auteur            : ANGELINE LEFRAN
 # R version         : 3.5.1, (ggplot2 : V3.1.0)
 # Encoding          : ISO 8859-1 (default)
-# Date de création  : 15 MARS 2020
+# Date de création  : 15 MARCH 2020
+# Date de modification : 28 MAY 2021
 #______________________________________________________________________________________________
 
 #### ANALYSIS START HERE ####
@@ -43,7 +44,7 @@ Sites<-data.frame(Num=c("010-P-001","010-P-109","014-P-023","018-P-054","006-P-0
                   Nom=c("Antifer","Cabourg", "Géfosse", "Donville","At so", "StCast_Hebihens"),
                   Code=c("ANT","CAB","GEF","DONV","ATSO","STCA"))
 
-Dataset<- read.table(file = "Derived_datasets/PhytoData_complete_final-05-2020.csv",header=T,sep= ";", dec=".")
+Dataset<- read.table(file = "Derived_datasets/PhytoData_complete_final-05-2021.csv",header=T,sep= ";", dec=".")
 Dataset$Passage...Date<-as.Date(Dataset$Passage...Date,"%d/%m/%Y") #Warning for NAs ! Go back to csv file to change the column type to date
 Dataset$Résultat...Valeur.de.la.mesure<-as.numeric(as.character(Dataset$Résultat...Valeur.de.la.mesure)) #as.numeric isn't enough to convert a factor class
 #if NAs be sure the csv only contains numeric and not 1E6 that is character
@@ -241,9 +242,9 @@ for (o in 1:6) {
   S<-length(unique(Tabsite$Résultat...Nom.du.taxon))
   
   Tabsite<-Tabsite[colnames(Tabsite) %in% c("Passage...Date","Résultat...Nom.du.taxon","Résultat...Valeur.de.la.mesure")]
-  matrixfauna <- spread(Tabsite,Résultat...Nom.du.taxon,Résultat...Valeur.de.la.mesure,fill=0)
+  matrixfauna <-   tidyr::pivot_wider(data=Tabsite, id_cols = c(Passage...Date), names_from=Résultat...Nom.du.taxon, values_from=Résultat...Valeur.de.la.mesure,values_fill = list(Résultat...Valeur.de.la.mesure=0)) 
   #Saving the first column for dates
-  Temps<-unique(matrixfauna[,1])
+  Temps<-unique(matrixfauna$Passage...Date)
   matrixfauna<-matrixfauna[,-(1)]
   
   #####Bray-Curtis index####
@@ -912,6 +913,7 @@ mlay <- matrix(c(0,1,1,0, 0,1,1,0, 2,2,3,3, 2,2,3,3), byrow = T, nrow = 4)
 st1 <- ADEgS(list(ss1,ss2dia,ss2oth), layout = mlay)
 
 
+png(file= paste("Figures/Costatis-Slimani_Figures",format(Sys.Date(), "%d%m%Y"),".png"),width = 210 , height = 150, units = "mm" , res = 300 , family = "Arial" , pointsize = 10 )
 pdf(file= paste("Figures/Costatis-Slimani_Figures",format(Sys.Date(), "%d%m%Y"),".pdf"),width = 10 , height = 10)
 st1
 dev.off()
